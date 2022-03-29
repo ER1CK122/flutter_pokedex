@@ -99,10 +99,11 @@ class PokeItem extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
+              Positioned(
+                top: 55,
+                right: 2,
                 child: CachedNetworkImage(
-                  height: 90,
+                  height: 100,
                   width: 105,
                   placeholder: (context, url) => Container(
                     color: Colors.transparent,
