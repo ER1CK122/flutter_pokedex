@@ -38,7 +38,7 @@ class Pokemon {
       {this.id,
       this.num,
       required this.img,
-      this.type,
+      required this.type,
       this.height,
       required this.name,
       this.weight,
