@@ -22,6 +22,13 @@ class PokeDatailPage extends StatefulWidget {
 
 class _PokeDatailPageState extends State<PokeDatailPage> {
   Color? _corPokemon;
+  PageController? _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: widget.index);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +99,7 @@ class _PokeDatailPageState extends State<PokeDatailPage> {
                 child: SizedBox(
                   height: 200,
                   child: PageView.builder(
+                    controller: _pageController,
                     onPageChanged: (index) {
                       _pokemonStore.setPokemonAtual(index: index);
                     },
