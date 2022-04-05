@@ -8,7 +8,6 @@ import 'package:pokedex/models/pokeapi.dart';
 import 'package:pokedex/stores/pokeapi_store.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 // import 'package:simple_animations/simple_animations.dart';
-
 import '../../consts/consts_app.dart';
 
 class PokeDatailPage extends StatefulWidget {
@@ -72,48 +71,54 @@ class _PokeDatailPageState extends State<PokeDatailPage> {
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(50),
             child: Observer(builder: (context) {
-              return AppBar(
-                title: Opacity(
-                  opacity: _opacityTitleAppBar!,
-                  child: Text(
-                    _pokemon!.name ?? '',
-                    style: const TextStyle(
-                      fontFamily: 'Google',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 21,
-                    ),
-                  ),
-                ),
-                elevation: 0,
-                backgroundColor: _pokemonStore!.corPokemon,
-                leading: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-                actions: <Widget>[
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Opacity(
-                        opacity: _opacityTitleAppBar! >= 0.2 ? 0.2 : 0.0,
-                        child: Image.asset(
-                          ConstApp.whitePokeball,
-                          height: 400,
-                        ),
+              return Column(
+                children: <Widget>[
+                  AppBar(
+                    title: Text(
+                      _pokemon!.name ?? '',
+                      style: const TextStyle(
+                        fontFamily: 'Google',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 21,
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.favorite_border),
-                        onPressed: () {},
+                    ),
+                    centerTitle: true,
+                    elevation: 0,
+                    backgroundColor: _pokemonStore!.corPokemon,
+                    leading: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                    actions: <Widget>[
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Opacity(
+                            opacity: _opacityTitleAppBar! >= 0.2 ? 0.2 : 0.0,
+                            child: Image.asset(
+                              ConstApp.whitePokeball,
+                              height: 100,
+                            ),
+                          ),
+                          IconButton(
+                            alignment: Alignment.bottomCenter,
+                            icon: const Icon(Icons.favorite_border),
+                            onPressed: () {
+                              Navigator.defaultRouteName;
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
+                  setTipos(_pokemonStore!.pokemonAtual!.type!)
                 ],
               );
             }),
@@ -138,7 +143,7 @@ class _PokeDatailPageState extends State<PokeDatailPage> {
                 cornerRadius: 30,
                 snapSpec: const SnapSpec(
                   snap: true,
-                  snappings: [0.7, 1.0],
+                  snappings: [0.6, 0.98],
                   positioning: SnapPositioning.relativeToAvailableSpace,
                 ),
                 builder: (context, state) {
@@ -150,7 +155,7 @@ class _PokeDatailPageState extends State<PokeDatailPage> {
               Opacity(
                 opacity: _opacity!,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 52 - _progress! * 50),
+                  padding: EdgeInsets.only(top: 135 - _progress! * 50),
                   child: SizedBox(
                     height: 300,
                     width: 600,
@@ -164,7 +169,7 @@ class _PokeDatailPageState extends State<PokeDatailPage> {
                         Pokemon _pokeItem =
                             _pokemonStore!.getPokemon(index: count);
                         return Stack(
-                          alignment: Alignment.bottomCenter,
+                          alignment: Alignment.center,
                           children: <Widget>[
                             Hero(
                               tag: count.toString(),
@@ -197,6 +202,45 @@ class _PokeDatailPageState extends State<PokeDatailPage> {
           ),
         );
       },
+    );
+  }
+
+  Widget setTipos(List<String> types) {
+    List<Widget> lista = [];
+    for (var nome in types) {
+      lista.add(
+        Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Container(
+                padding: const EdgeInsets.all(0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color.fromARGB(80, 255, 255, 255)),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    nome.trim(),
+                    style: const TextStyle(
+                        fontFamily: 'Google',
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            )
+          ],
+        ),
+      );
+    }
+    return Row(
+      children: lista,
+      crossAxisAlignment: CrossAxisAlignment.start,
     );
   }
 }
